@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -38,23 +38,37 @@ namespace Project
                                     "<th>phone</th>" +
                                     "<th>email</th>" +
                                 "</tr>";
-                
+
+                usersTable += "<tr>";
+                usersTable += "<td>" + "Admin" + "</td>";
+                usersTable += "<td>" + Session["id"] + "</td>";
+                usersTable += "<td>" + Session["fName"] + "</td>";
+                usersTable += "<td>" + Session["lName"] + "</td>";
+                usersTable += "<td>" + Session["pass"] + "</td>";
+                usersTable += "<td>" + Session["phone"] + "</td>";
+                usersTable += "<td>" + Session["email"] + "</td>";
+                usersTable += "<td style=\"text-align: center;\">";
+                usersTable += "</tr>";
+
                 for (int i = 0; i < length; i++)
                 {
-                    usersTable += "<tr>";
-                    usersTable += "<td>" + table.Rows[i]["uName"] + "</td>";
-                    usersTable += "<td>" + table.Rows[i]["id"] + "</td>";
-                    usersTable += "<td>" + table.Rows[i]["fName"] + "</td>";
-                    usersTable += "<td>" + table.Rows[i]["lName"] + "</td>";
-                    usersTable += "<td>" + table.Rows[i]["pass"] + "</td>";
-                    usersTable += "<td>" + table.Rows[i]["phone"] + "</td>";
-                    usersTable += "<td>" + table.Rows[i]["email"] + "</td>";
+                    if (!(table.Rows[i]["uName"].ToString().Equals("Admin           ")))
+                    {
+                        usersTable += "<tr>";
+                        usersTable += "<td>" + table.Rows[i]["uName"] + "</td>";
+                        usersTable += "<td>" + table.Rows[i]["id"] + "</td>";
+                        usersTable += "<td>" + table.Rows[i]["fName"] + "</td>";
+                        usersTable += "<td>" + table.Rows[i]["lName"] + "</td>";
+                        usersTable += "<td>" + table.Rows[i]["pass"] + "</td>";
+                        usersTable += "<td>" + table.Rows[i]["phone"] + "</td>";
+                        usersTable += "<td>" + table.Rows[i]["email"] + "</td>";
 
-                    userToDelete = table.Rows[i]["uName"].ToString();
+                        userToDelete = table.Rows[i]["uName"].ToString();
 
-                    usersTable += "<td style=\"text-align: center;\">";
-                    usersTable += "<a href = 'DeleteRecord.aspx?uName=" + userToDelete + "'>[delete]</a>";
-                    usersTable += "</tr>";
+                        usersTable += "<td style=\"text-align: center;\">";
+                        usersTable += "<a href = 'DeleteRecord.aspx?uName=" + userToDelete + "'>[delete]</a>";
+                        usersTable += "</tr>";
+                    }
                 }
                 usersTable += "</table>";
             }
