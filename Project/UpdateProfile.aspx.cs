@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,7 +24,7 @@ namespace Project
             string fileName = "yuvalDB.mdf";
             string tableName = "Users";
 
-            inputs = "<p style=\"font-size: 13px\">Username:</p><input type=\"text\" value=\"" + Session["uName"] + "\" name=\"name\" />" +
+            inputs = "<p style=\"font-size: 13px\">Username:</p><input type=\"text\" value=\"" + Session["uName"] + "\" name=\"name\" " + (Session["uName"].ToString().Equals("Admin")? "disabled" : "") + "/>" +
                      "<p style=\"font-size: 13px\">Id:</p><input type=\"text\" value=\"" + Session["id"] + "\" name=\"id\" />" +
                      "<p style=\"font-size: 13px\">First Name:</p><input type=\"text\" value=\"" + Session["fName"] + "\" name =\"fName\" />" +
                      "<p style=\"font-size: 13px\">Last Name:</p><input type=\"text\" value=\"" + Session["lName"] + "\" name = \"lName\" />" +
@@ -34,6 +34,9 @@ namespace Project
 
             if (Request.Form["submit"] != null) {
                 string uName = Request.Form["name"];
+                if (Session["uName"].ToString().Equals("Admin"))
+                    uName = "Admin";
+
                 sqlSelect = "SELECT * FROM Users WHERE uName= '" + uName + "'";
                 if (Helper.IsExist(fileName, sqlSelect) && !(Session["uName"].Equals(uName)))
                 {
@@ -74,7 +77,7 @@ namespace Project
                         Session["pass"] = pass;
                         Session["phone"] = phoneNum;
                         Session["email"] = email;
-                        inputs = "<p style=\"font-size: 13px\">Username:</p><input type=\"text\" value=\"" + Session["uName"] + "\" name=\"name\" />" +
+                        inputs = "<p style=\"font-size: 13px\">Username:</p><input type=\"text\" value=\"" + Session["uName"] + "\" name=\"name\" " + (Session["uName"].ToString().Equals("Admin") ? "disabled" : "") + "/>" +
                                  "<p style=\"font-size: 13px\">Id:</p><input type=\"text\" value=\"" + Session["id"] + "\" name=\"id\" />" +
                                  "<p style=\"font-size: 13px\">First Name:</p><input type=\"text\" value=\"" + Session["fName"] + "\" name =\"fName\" />" +
                                  "<p style=\"font-size: 13px\">Last Name:</p><input type=\"text\" value=\"" + Session["lName"] + "\" name = \"lName\" />" +
